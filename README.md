@@ -2,6 +2,12 @@
 
 Language: Javascript
 
+__NOTE__: The code before starting the refactor is available at the git tag `start`. If you want to try on your own, 
+you can do it in a different branch by running: 
+```
+git checkout tags/start -b <branch-name> 
+```
+
 ## Description
 
 ### Introduction 
