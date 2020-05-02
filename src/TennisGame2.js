@@ -9,6 +9,15 @@ class TennisGame2 {
   }
 
   getScore() {
+    if (this.pointsP1 >= 4 && this.pointsP2 >= 0 && this.pointsP1 - this.pointsP2 >= 2)
+      return `Win for ${this.nameP1}`
+    if (this.pointsP2 >= 4 && this.pointsP1 >= 0 && this.pointsP2 - this.pointsP1 >= 2)
+      return `Win for ${this.nameP2}`
+    if (this.pointsP1 > this.pointsP2 && this.pointsP2 >= 3)
+      return `Advantage ${this.nameP1}`
+    if (this.pointsP2 > this.pointsP1 && this.pointsP1 >= 3)
+      return `Advantage ${this.nameP2}`
+
     const playerScoreValue = points => {
       if (points === 0) return 'Love'
       if (points === 1) return 'Fifteen'
@@ -18,19 +27,10 @@ class TennisGame2 {
     this.scoreP1 = playerScoreValue(this.pointsP1)
     this.scoreP2 = playerScoreValue(this.pointsP2)
 
-    if (this.pointsP1 >= 4 && this.pointsP2 >= 0 && this.pointsP1 - this.pointsP2 >= 2)
-      return `Win for ${this.nameP1}`
-    if (this.pointsP2 >= 4 && this.pointsP1 >= 0 && this.pointsP2 - this.pointsP1 >= 2)
-      return `Win for ${this.nameP2}`
-    if (this.pointsP1 > this.pointsP2 && this.pointsP2 >= 3)
-      return `Advantage ${this.nameP1}`
-    if (this.pointsP2 > this.pointsP1 && this.pointsP1 >= 3)
-      return `Advantage ${this.nameP2}`
-    if (this.pointsP1 === this.pointsP2) {
-      if (this.pointsP1 > 2) return 'Deuce'
-      else return `${playerScoreValue(this.pointsP1)}-All`
-    }
-    return this.scoreP1 + '-' + this.scoreP2
+    if (this.pointsP1 === this.pointsP2)
+      return this.pointsP1 > 2 ? 'Deuce' : `${this.scoreP1}-All`
+    else
+      return this.scoreP1 + '-' + this.scoreP2
   }
 
   wonPoint(player) {
