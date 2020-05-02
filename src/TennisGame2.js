@@ -1,93 +1,91 @@
 class TennisGame2 {
   constructor(player1Name, player2Name) {
-    this.P1point = 0
-    this.P2point = 0
-
-    this.P1res = ''
-    this.P2res = ''
-
-    this.player1Name = player1Name
-    this.player2Name = player2Name
+    this.pointsP1 = 0
+    this.pointsP2 = 0
+    this.scoreP1 = ''
+    this.scoreP2 = ''
+    this.nameP1 = player1Name
+    this.nameP2 = player2Name
   }
 
   getScore() {
     var score = ''
 
-    if (this.P1point === this.P2point && this.P1point < 3) {
-      if (this.P1point === 0) score = 'Love'
-      if (this.P1point === 1) score = 'Fifteen'
-      if (this.P1point === 2) score = 'Thirty'
+    if (this.pointsP1 === this.pointsP2 && this.pointsP1 < 3) {
+      if (this.pointsP1 === 0) score = 'Love'
+      if (this.pointsP1 === 1) score = 'Fifteen'
+      if (this.pointsP1 === 2) score = 'Thirty'
       score += '-All'
     }
-    if (this.P1point === this.P2point && this.P1point > 2) score = 'Deuce'
+    if (this.pointsP1 === this.pointsP2 && this.pointsP1 > 2) score = 'Deuce'
 
-    if (this.P1point > 0 && this.P2point === 0) {
-      if (this.P1point === 1) this.P1res = 'Fifteen'
-      if (this.P1point === 2) this.P1res = 'Thirty'
-      if (this.P1point === 3) this.P1res = 'Forty'
+    if (this.pointsP1 > 0 && this.pointsP2 === 0) {
+      if (this.pointsP1 === 1) this.scoreP1 = 'Fifteen'
+      if (this.pointsP1 === 2) this.scoreP1 = 'Thirty'
+      if (this.pointsP1 === 3) this.scoreP1 = 'Forty'
 
-      this.P2res = 'Love'
-      score = this.P1res + '-' + this.P2res
+      this.scoreP2 = 'Love'
+      score = this.scoreP1 + '-' + this.scoreP2
     }
-    if (this.P2point > 0 && this.P1point === 0) {
-      if (this.P2point === 1) this.P2res = 'Fifteen'
-      if (this.P2point === 2) this.P2res = 'Thirty'
-      if (this.P2point === 3) this.P2res = 'Forty'
+    if (this.pointsP2 > 0 && this.pointsP1 === 0) {
+      if (this.pointsP2 === 1) this.scoreP2 = 'Fifteen'
+      if (this.pointsP2 === 2) this.scoreP2 = 'Thirty'
+      if (this.pointsP2 === 3) this.scoreP2 = 'Forty'
 
-      this.P1res = 'Love'
-      score = this.P1res + '-' + this.P2res
-    }
-
-    if (this.P1point > this.P2point && this.P1point < 4) {
-      if (this.P1point === 2) this.P1res = 'Thirty'
-      if (this.P1point === 3) this.P1res = 'Forty'
-      if (this.P2point === 1) this.P2res = 'Fifteen'
-      if (this.P2point === 2) this.P2res = 'Thirty'
-      score = this.P1res + '-' + this.P2res
-    }
-    if (this.P2point > this.P1point && this.P2point < 4) {
-      if (this.P2point === 2) this.P2res = 'Thirty'
-      if (this.P2point === 3) this.P2res = 'Forty'
-      if (this.P1point === 1) this.P1res = 'Fifteen'
-      if (this.P1point === 2) this.P1res = 'Thirty'
-      score = this.P1res + '-' + this.P2res
+      this.scoreP1 = 'Love'
+      score = this.scoreP1 + '-' + this.scoreP2
     }
 
-    if (this.P1point > this.P2point && this.P2point >= 3) {
-      score = `Advantage ${this.player1Name}`
+    if (this.pointsP1 > this.pointsP2 && this.pointsP1 < 4) {
+      if (this.pointsP1 === 2) this.scoreP1 = 'Thirty'
+      if (this.pointsP1 === 3) this.scoreP1 = 'Forty'
+      if (this.pointsP2 === 1) this.scoreP2 = 'Fifteen'
+      if (this.pointsP2 === 2) this.scoreP2 = 'Thirty'
+      score = this.scoreP1 + '-' + this.scoreP2
+    }
+    if (this.pointsP2 > this.pointsP1 && this.pointsP2 < 4) {
+      if (this.pointsP2 === 2) this.scoreP2 = 'Thirty'
+      if (this.pointsP2 === 3) this.scoreP2 = 'Forty'
+      if (this.pointsP1 === 1) this.scoreP1 = 'Fifteen'
+      if (this.pointsP1 === 2) this.scoreP1 = 'Thirty'
+      score = this.scoreP1 + '-' + this.scoreP2
     }
 
-    if (this.P2point > this.P1point && this.P1point >= 3) {
-      score = `Advantage ${this.player2Name}`
+    if (this.pointsP1 > this.pointsP2 && this.pointsP2 >= 3) {
+      score = `Advantage ${this.nameP1}`
+    }
+
+    if (this.pointsP2 > this.pointsP1 && this.pointsP1 >= 3) {
+      score = `Advantage ${this.nameP2}`
     }
 
     if (
-      this.P1point >= 4 &&
-      this.P2point >= 0 &&
-      this.P1point - this.P2point >= 2
+      this.pointsP1 >= 4 &&
+      this.pointsP2 >= 0 &&
+      this.pointsP1 - this.pointsP2 >= 2
     ) {
-      score = `Win for ${this.player1Name}`
+      score = `Win for ${this.nameP1}`
     }
     if (
-      this.P2point >= 4 &&
-      this.P1point >= 0 &&
-      this.P2point - this.P1point >= 2
+      this.pointsP2 >= 4 &&
+      this.pointsP1 >= 0 &&
+      this.pointsP2 - this.pointsP1 >= 2
     ) {
-      score = `Win for ${this.player2Name}`
+      score = `Win for ${this.nameP2}`
     }
     return score
   }
 
   P1Score() {
-    this.P1point++
+    this.pointsP1++
   }
 
   P2Score() {
-    this.P2point++
+    this.pointsP2++
   }
 
   wonPoint(player) {
-    if (player === this.player1Name) this.P1Score()
+    if (player === this.nameP1) this.P1Score()
     else this.P2Score()
   }
 }
