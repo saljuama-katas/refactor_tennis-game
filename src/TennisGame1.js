@@ -14,8 +14,18 @@ class TennisGame1 {
   }
 
   getScore() {
-    var score = ''
-    var tempScore = 0
+    const scoreDifference = Math.abs(this.player1Score - this.player2Score)
+    const playerAhead = (this.player1Score > this.player2Score) ? this.player1Name : this.player2Name
+    const isGameOver = () => (this.player1Score >= 4 || this.player2Score >= 4) && scoreDifference >= 2
+    const playerHasAdvantage = () => (this.player1Score >= 3 && this.player2Score >= 3) && scoreDifference === 1
+
+    let score = '';
+    let tempScore = 0;
+    if (isGameOver())
+        return `Win for ${playerAhead}`
+    if (playerHasAdvantage())
+      return `Advantage ${playerAhead}`
+
     if (this.player1Score === this.player2Score) {
       switch (this.player1Score) {
         case 0:
@@ -31,13 +41,8 @@ class TennisGame1 {
           score = 'Deuce'
           break
       }
-    } else if (this.player1Score >= 4 || this.player2Score >= 4) {
-      var minusResult = this.player1Score - this.player2Score
-      if (minusResult === 1) score = `Advantage ${this.player1Name}`
-      else if (minusResult === -1) score = `Advantage ${this.player2Name}`
-      else if (minusResult >= 2) score = `Win for ${this.player1Name}`
-      else score = `Win for ${this.player2Name}`
-    } else {
+    }
+    else {
       for (var i = 1; i < 3; i++) {
         if (i === 1) tempScore = this.player1Score
         else {
@@ -62,6 +67,8 @@ class TennisGame1 {
     }
     return score
   }
+
+
 }
 
 if (typeof window === 'undefined') {
