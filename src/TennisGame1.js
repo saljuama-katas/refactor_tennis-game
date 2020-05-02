@@ -15,7 +15,6 @@ class TennisGame1 {
 
   getScore() {
     const scoreDifference = Math.abs(this.player1Score - this.player2Score)
-    const playerAhead = (this.player1Score > this.player2Score) ? this.player1Name : this.player2Name
     const isGameOver = () => (this.player1Score >= 4 || this.player2Score >= 4) && scoreDifference >= 2
     const playerHasAdvantage = () => (this.player1Score >= 3 && this.player2Score >= 3) && scoreDifference === 1
     const isGameTied = () => this.player1Score === this.player2Score
@@ -32,6 +31,7 @@ class TennisGame1 {
       }
     }
 
+    const playerAhead = (this.player1Score > this.player2Score) ? this.player1Name : this.player2Name
     if (isGameOver())
       return `Win for ${playerAhead}`
     else if (playerHasAdvantage())
