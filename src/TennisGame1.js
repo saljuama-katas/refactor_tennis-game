@@ -36,18 +36,8 @@ class TennisGame1 {
       return `Win for ${playerAhead}`
     else if (playerHasAdvantage())
       return `Advantage ${playerAhead}`
-    else if (isGameTied()) {
-      switch (this.player1Score) {
-        case 0:
-          return 'Love-All'
-        case 1:
-          return 'Fifteen-All'
-        case 2:
-          return 'Thirty-All'
-        default:
-          return 'Deuce'
-      }
-    }
+    else if (isGameTied())
+      return this.player1Score >= 3 ? 'Deuce' : `${playerScoreValue(this.player1Score)}-All`
     else
       return `${playerScoreValue(this.player1Score)}-${playerScoreValue(this.player2Score)}`
   }
