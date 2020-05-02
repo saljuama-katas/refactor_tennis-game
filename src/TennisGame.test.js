@@ -2,6 +2,12 @@ const TennisGame1 = require('./TennisGame1.js')
 const TennisGame2 = require('./TennisGame2.js')
 const TennisGame3 = require('./TennisGame3.js')
 
+const allGames = [
+  {name: 'Tennis Game 1', type: TennisGame1},
+  {name: 'Tennis Game 2', type: TennisGame2},
+  {name: 'Tennis Game 3', type: TennisGame3}
+]
+
 const allScores = [
   [0, 0, 'Love-All'],
   [1, 1, 'Fifteen-All'],
@@ -52,34 +58,14 @@ const setupGame = (TennisGame, p1score, p2score) => {
   return game
 }
 
-
-describe('Tennis Game 1', () => {
-  allScores.map(testCase => {
-    it(`when points are ${testCase[0]}-${testCase[1]} returns the score ${testCase[2]}`, () => {
-      const game = setupGame(TennisGame1, testCase[0], testCase[1])
-      const result = game.getScore()
-      expect(result).toEqual(testCase[2])
+allGames.map(gameTestCase => {
+  describe(`${gameTestCase.name}`, () => {
+    allScores.map(scoreTestCase => {
+      it(`when points are ${scoreTestCase[0]}-${scoreTestCase[1]} returns the score ${scoreTestCase[2]}`, () => {
+        const game = setupGame(gameTestCase.type, scoreTestCase[0], scoreTestCase[1])
+        const result = game.getScore()
+        expect(result).toEqual(scoreTestCase[2])
+      })
     })
   })
 })
-
-describe('Tennis Game 2', () => {
-  allScores.map(testCase => {
-    it(`when points are ${testCase[0]}-${testCase[1]} returns the score ${testCase[2]}`, () => {
-      const game = setupGame(TennisGame2, testCase[0], testCase[1])
-      const result = game.getScore()
-      expect(result).toEqual(testCase[2])
-    })
-  })
-})
-
-describe('Tennis Game 3', () => {
-  allScores.map(testCase => {
-    it(`when points are ${testCase[0]}-${testCase[1]} returns the score ${testCase[2]}`, () => {
-      const game = setupGame(TennisGame3, testCase[0], testCase[1])
-      const result = game.getScore()
-      expect(result).toEqual(testCase[2])
-    })
-  })
-})
-
