@@ -18,59 +18,39 @@ class TennisGame1 {
     const playerAhead = (this.player1Score > this.player2Score) ? this.player1Name : this.player2Name
     const isGameOver = () => (this.player1Score >= 4 || this.player2Score >= 4) && scoreDifference >= 2
     const playerHasAdvantage = () => (this.player1Score >= 3 && this.player2Score >= 3) && scoreDifference === 1
+    const isGameTied = () => this.player1Score === this.player2Score
+    const playerScoreValue = score => {
+      switch (score) {
+        case 0:
+          return 'Love'
+        case 1:
+          return 'Fifteen'
+        case 2:
+          return 'Thirty'
+        case 3:
+          return 'Forty'
+      }
+    }
 
-    let score = '';
-    let tempScore = 0;
     if (isGameOver())
-        return `Win for ${playerAhead}`
-    if (playerHasAdvantage())
+      return `Win for ${playerAhead}`
+    else if (playerHasAdvantage())
       return `Advantage ${playerAhead}`
-
-    if (this.player1Score === this.player2Score) {
+    else if (isGameTied()) {
       switch (this.player1Score) {
         case 0:
-          score = 'Love-All'
-          break
+          return 'Love-All'
         case 1:
-          score = 'Fifteen-All'
-          break
+          return 'Fifteen-All'
         case 2:
-          score = 'Thirty-All'
-          break
+          return 'Thirty-All'
         default:
-          score = 'Deuce'
-          break
+          return 'Deuce'
       }
     }
-    else {
-      for (var i = 1; i < 3; i++) {
-        if (i === 1) tempScore = this.player1Score
-        else {
-          score += '-'
-          tempScore = this.player2Score
-        }
-        switch (tempScore) {
-          case 0:
-            score += 'Love'
-            break
-          case 1:
-            score += 'Fifteen'
-            break
-          case 2:
-            score += 'Thirty'
-            break
-          case 3:
-            score += 'Forty'
-            break
-        }
-      }
-    }
-    return score
+    else
+      return `${playerScoreValue(this.player1Score)}-${playerScoreValue(this.player2Score)}`
   }
-
-
 }
 
-if (typeof window === 'undefined') {
-  module.exports = TennisGame1
-}
+module.exports = TennisGame1
