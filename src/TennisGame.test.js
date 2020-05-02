@@ -51,10 +51,8 @@ const allScores = [
 
 const setupGame = (TennisGame, p1score, p2score) => {
   const game = new TennisGame('player1', 'player2')
-  for (let i = 0; i < p1score; i++)
-    game.wonPoint('player1')
-  for (let i = 0; i < p2score; i++)
-    game.wonPoint('player2')
+  Array(p1score).fill(0).forEach(_ => game.wonPoint('player1'))
+  Array(p2score).fill(0).forEach(_ => game.wonPoint('player2'))
   return game
 }
 
@@ -63,8 +61,7 @@ allGames.map(gameTestCase => {
     allScores.map(scoreTestCase => {
       it(`when points are ${scoreTestCase[0]}-${scoreTestCase[1]} returns the score ${scoreTestCase[2]}`, () => {
         const game = setupGame(gameTestCase.type, scoreTestCase[0], scoreTestCase[1])
-        const result = game.getScore()
-        expect(result).toEqual(scoreTestCase[2])
+        expect(game.getScore()).toEqual(scoreTestCase[2])
       })
     })
   })
