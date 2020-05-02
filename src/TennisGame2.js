@@ -16,15 +16,9 @@ class TennisGame2 {
     if (playerHasAdvantage())
       return `Advantage ${playerAhead}`
 
-    const playerScoreValue = points => {
-      if (points === 0) return 'Love'
-      if (points === 1) return 'Fifteen'
-      if (points === 2) return 'Thirty'
-      if (points === 3) return 'Forty'
-    }
-
-    const scoreP1 = playerScoreValue(this.pointsP1)
-    const scoreP2 = playerScoreValue(this.pointsP2)
+    const scoreNames = ['Love', 'Fifteen', 'Thirty', 'Forty']
+    const scoreP1 = scoreNames[this.pointsP1]
+    const scoreP2 = scoreNames[this.pointsP2]
     if (this.pointsP1 === this.pointsP2)
       return this.pointsP1 > 2 ? 'Deuce' : `${scoreP1}-All`
     else

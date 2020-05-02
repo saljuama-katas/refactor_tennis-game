@@ -14,32 +14,22 @@ class TennisGame1 {
   }
 
   getScore() {
+    const playerAhead = (this.player1Score > this.player2Score) ? this.player1Name : this.player2Name
     const scoreDifference = Math.abs(this.player1Score - this.player2Score)
+    const scoreNames = ['Love', 'Fifteen', 'Thirty', 'Forty']
+
     const isGameOver = () => (this.player1Score >= 4 || this.player2Score >= 4) && scoreDifference >= 2
     const playerHasAdvantage = () => (this.player1Score >= 3 && this.player2Score >= 3) && scoreDifference === 1
     const isGameTied = () => this.player1Score === this.player2Score
-    const playerScoreValue = score => {
-      switch (score) {
-        case 0:
-          return 'Love'
-        case 1:
-          return 'Fifteen'
-        case 2:
-          return 'Thirty'
-        case 3:
-          return 'Forty'
-      }
-    }
 
-    const playerAhead = (this.player1Score > this.player2Score) ? this.player1Name : this.player2Name
     if (isGameOver())
       return `Win for ${playerAhead}`
     else if (playerHasAdvantage())
       return `Advantage ${playerAhead}`
     else if (isGameTied())
-      return this.player1Score >= 3 ? 'Deuce' : `${playerScoreValue(this.player1Score)}-All`
+      return this.player1Score >= 3 ? 'Deuce' : `${scoreNames[this.player1Score]}-All`
     else
-      return `${playerScoreValue(this.player1Score)}-${playerScoreValue(this.player2Score)}`
+      return `${scoreNames[this.player1Score]}-${scoreNames[this.player2Score]}`
   }
 }
 
