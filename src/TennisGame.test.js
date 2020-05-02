@@ -1,14 +1,8 @@
-if (typeof TennisGame1 === 'undefined') {
-  var TennisGame1 = require('./TennisGame1.js')
-}
-if (typeof TennisGame2 === 'undefined') {
-  var TennisGame2 = require('./TennisGame2.js')
-}
-if (typeof TennisGame3 === 'undefined') {
-  var TennisGame3 = require('./TennisGame3.js')
-}
+const TennisGame1 = require('./TennisGame1.js')
+const TennisGame2 = require('./TennisGame2.js')
+const TennisGame3 = require('./TennisGame3.js')
 
-var allScores = [
+const allScores = [
   [0, 0, 'Love-All'],
   [1, 1, 'Fifteen-All'],
   [2, 2, 'Thirty-All'],
@@ -49,121 +43,43 @@ var allScores = [
   [14, 16, 'Win for player2'],
 ]
 
-var checkScore = function (
-  reporter,
-  TennisGame,
-  player1Score,
-  player2Score,
-  expectedScore
-) {
-  var highestScore = Math.max(player1Score, player2Score)
-  var game
-  var result
-  var message = ''
-  var ok = false
-  var i
-
-  try {
-    game = new TennisGame('player1', 'player2')
-    for (i = 0; i < highestScore; i++) {
-      if (i < player1Score) {
-        game.wonPoint('player1')
-      }
-      if (i < player2Score) {
-        game.wonPoint('player2')
-      }
-    }
-    result = game.getScore()
-
-    if (result === expectedScore) {
-      ok = true
-    } else {
-      message = "Result = '" + result + "'"
-    }
-  } catch (ex) {
-    message = 'Exception: ' + ex
-  }
-
-  reporter.addCase(expectedScore, ok, message)
+const setupGame = (TennisGame, p1score, p2score) => {
+  const game = new TennisGame('player1', 'player2')
+  for (let i = 0; i < p1score; i++)
+    game.wonPoint('player1')
+  for (let i = 0; i < p2score; i++)
+    game.wonPoint('player2')
+  return game
 }
 
-var runSuiteOnGame = function (reporter, TennisGame, title) {
-  reporter.addSuite(title)
-  allScores.forEach(function (score) {
-    checkScore(reporter, TennisGame, score[0], score[1], score[2])
+
+describe('Tennis Game 1', () => {
+  allScores.map(testCase => {
+    it(`when points are ${testCase[0]}-${testCase[1]} returns the score ${testCase[2]}`, () => {
+      const game = setupGame(TennisGame1, testCase[0], testCase[1])
+      const result = game.getScore()
+      expect(result).toEqual(testCase[2])
+    })
   })
-}
+})
 
-var getBrowserReporter = function () {
-  var results = document.getElementById('results')
-  var total = document.getElementById('total')
-  var reporter = {
-    errors: 0,
-    addSuite: function (title) {
-      results.innerHTML +=
-        '<tr style="background:#D0D0D0;"><td>' + title + ' </td><td></td></tr>'
-    },
-    addCase: function (title, ok, message) {
-      var color = ok ? '#20FF20' : '#FF2020'
-      results.innerHTML +=
-        '<tr><td>' +
-        title +
-        '</td><td style="background:' +
-        color +
-        ';">' +
-        message +
-        '</td></tr>'
-      if (!ok) {
-        this.errors++
-      }
-    },
-    done: function () {
-      var color = this.errors === 0 ? '#20FF20' : '#FF2020'
-      total.innerHTML =
-        '<div style="background:' +
-        color +
-        ';">' +
-        this.errors +
-        ' failure(s)!</div>'
-    },
-  }
+describe('Tennis Game 2', () => {
+  allScores.map(testCase => {
+    it(`when points are ${testCase[0]}-${testCase[1]} returns the score ${testCase[2]}`, () => {
+      const game = setupGame(TennisGame2, testCase[0], testCase[1])
+      const result = game.getScore()
+      expect(result).toEqual(testCase[2])
+    })
+  })
+})
 
-  return reporter
-}
+describe('Tennis Game 3', () => {
+  allScores.map(testCase => {
+    it(`when points are ${testCase[0]}-${testCase[1]} returns the score ${testCase[2]}`, () => {
+      const game = setupGame(TennisGame3, testCase[0], testCase[1])
+      const result = game.getScore()
+      expect(result).toEqual(testCase[2])
+    })
+  })
+})
 
-var getConsoleReporter = function () {
-  var reporter = {
-    errors: 0,
-    addSuite: function (title) {
-      console.log("Running suite '" + title + "'...")
-    },
-    addCase: function (title, ok, message) {
-      if (!ok) {
-        console.log("Case '" + title + "': " + message)
-        this.errors++
-      }
-    },
-    done: function () {
-      if (this.errors > 0) {
-        console.log('Got ' + this.errors + ' failure(s)!')
-      } else {
-        console.log('Done, all OK ')
-      }
-    },
-  }
-
-  return reporter
-}
-
-var reporter = null
-
-if (typeof window !== 'undefined') {
-  reporter = getBrowserReporter()
-} else {
-  reporter = getConsoleReporter()
-}
-
-runSuiteOnGame(reporter, TennisGame1, 'TennisGame1')
-runSuiteOnGame(reporter, TennisGame2, 'TennisGame2')
-runSuiteOnGame(reporter, TennisGame3, 'TennisGame3')
-reporter.done()
