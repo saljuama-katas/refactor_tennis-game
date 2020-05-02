@@ -7,14 +7,14 @@ class TennisGame2 {
   }
 
   getScore() {
-    if (this.pointsP1 >= 4 && this.pointsP2 >= 0 && this.pointsP1 - this.pointsP2 >= 2)
-      return `Win for ${this.nameP1}`
-    if (this.pointsP2 >= 4 && this.pointsP1 >= 0 && this.pointsP2 - this.pointsP1 >= 2)
-      return `Win for ${this.nameP2}`
-    if (this.pointsP1 > this.pointsP2 && this.pointsP2 >= 3)
-      return `Advantage ${this.nameP1}`
-    if (this.pointsP2 > this.pointsP1 && this.pointsP1 >= 3)
-      return `Advantage ${this.nameP2}`
+    const scoreDifference = Math.abs(this.pointsP1 - this.pointsP2)
+    const playerAhead = (this.pointsP1 > this.pointsP2) ? this.nameP1 : this.nameP2
+    const isGameOver = () => (this.pointsP1 >= 4 || this.pointsP2 >= 4) && scoreDifference >= 2
+    const playerHasAdvantage = () => (this.pointsP1 >= 3 && this.pointsP2 >= 3) && scoreDifference === 1
+    if (isGameOver())
+      return `Win for ${playerAhead}`
+    if (playerHasAdvantage())
+      return `Advantage ${playerAhead}`
 
     const playerScoreValue = points => {
       if (points === 0) return 'Love'
