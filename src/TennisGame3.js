@@ -8,16 +8,18 @@ class TennisGame3 {
 
   getScore() {
     const scoreNames = ['Love', 'Fifteen', 'Thirty', 'Forty']
-    let s
+
     if (this.p1score < 4 && this.p2score < 4 && this.p1score + this.p2score < 6) {
-      s = scoreNames[this.p1score]
-      return this.p1score === this.p2score ? s + '-All' : s + '-' + scoreNames[this.p2score]
-    } else {
+      const p1ScoreValue = scoreNames[this.p1score]
+      const p2ScoreValue = scoreNames[this.p2score]
+      return this.p1score === this.p2score ? `${p1ScoreValue}-All` : `${p1ScoreValue}-${p2ScoreValue}`
+    }
+    else {
       if (this.p1score === this.p2score) return 'Deuce'
-      s = this.p1score > this.p2score ? this.p1name : this.p2name
+      const playerAhead = this.p1score > this.p2score ? this.p1name : this.p2name
       return (this.p1score - this.p2score) * (this.p1score - this.p2score) === 1
-        ? 'Advantage ' + s
-        : 'Win for ' + s
+        ? 'Advantage ' + playerAhead
+        : 'Win for ' + playerAhead
     }
   }
 
