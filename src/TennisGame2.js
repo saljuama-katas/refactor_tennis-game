@@ -2,8 +2,6 @@ class TennisGame2 {
   constructor(player1Name, player2Name) {
     this.pointsP1 = 0
     this.pointsP2 = 0
-    this.scoreP1 = ''
-    this.scoreP2 = ''
     this.nameP1 = player1Name
     this.nameP2 = player2Name
   }
@@ -24,13 +22,13 @@ class TennisGame2 {
       if (points === 2) return 'Thirty'
       if (points === 3) return 'Forty'
     }
-    this.scoreP1 = playerScoreValue(this.pointsP1)
-    this.scoreP2 = playerScoreValue(this.pointsP2)
 
+    const scoreP1 = playerScoreValue(this.pointsP1)
+    const scoreP2 = playerScoreValue(this.pointsP2)
     if (this.pointsP1 === this.pointsP2)
-      return this.pointsP1 > 2 ? 'Deuce' : `${this.scoreP1}-All`
+      return this.pointsP1 > 2 ? 'Deuce' : `${scoreP1}-All`
     else
-      return this.scoreP1 + '-' + this.scoreP2
+      return `${scoreP1}-${scoreP2}`
   }
 
   wonPoint(player) {
