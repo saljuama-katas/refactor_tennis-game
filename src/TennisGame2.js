@@ -76,17 +76,11 @@ class TennisGame2 {
     return score
   }
 
-  P1Score() {
-    this.pointsP1++
-  }
-
-  P2Score() {
-    this.pointsP2++
-  }
-
   wonPoint(player) {
-    if (player === this.nameP1) this.P1Score()
-    else this.P2Score()
+    if (player === this.nameP1)
+      this.pointsP1++
+    else
+      this.pointsP2++
   }
 }
 
