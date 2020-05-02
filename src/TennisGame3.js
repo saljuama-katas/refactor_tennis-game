@@ -1,31 +1,30 @@
-var TennisGame3 = function (p1N, p2N) {
-  this.p2 = 0
-  this.p1 = 0
+class TennisGame3 {
+  constructor(p1name, p2Name) {
+    this.p1score = 0
+    this.p2score = 0
+    this.p1name = p1name
+    this.p2name = p2Name
+  }
 
-  this.p1N = p1N
-  this.p2N = p2N
-}
+  getScore() {
+    const scoreNames = ['Love', 'Fifteen', 'Thirty', 'Forty']
+    let s
+    if (this.p1score < 4 && this.p2score < 4 && this.p1score + this.p2score < 6) {
+      s = scoreNames[this.p1score]
+      return this.p1score == this.p2score ? s + '-All' : s + '-' + scoreNames[this.p2score]
+    } else {
+      if (this.p1score == this.p2score) return 'Deuce'
+      s = this.p1score > this.p2score ? this.p1name : this.p2name
+      return (this.p1score - this.p2score) * (this.p1score - this.p2score) == 1
+        ? 'Advantage ' + s
+        : 'Win for ' + s
+    }
+  }
 
-TennisGame3.prototype.getScore = function () {
-  var s
-  if (this.p1 < 4 && this.p2 < 4 && this.p1 + this.p2 < 6) {
-    var p = ['Love', 'Fifteen', 'Thirty', 'Forty']
-    s = p[this.p1]
-    return this.p1 == this.p2 ? s + '-All' : s + '-' + p[this.p2]
-  } else {
-    if (this.p1 == this.p2) return 'Deuce'
-    s = this.p1 > this.p2 ? this.p1N : this.p2N
-    return (this.p1 - this.p2) * (this.p1 - this.p2) == 1
-      ? 'Advantage ' + s
-      : 'Win for ' + s
+  wonPoint(playerName) {
+    if (playerName == this.p1name) this.p1score += 1
+    else this.p2score += 1
   }
 }
 
-TennisGame3.prototype.wonPoint = function (playerName) {
-  if (playerName == 'player1') this.p1 += 1
-  else this.p2 += 1
-}
-
-if (typeof window === 'undefined') {
-  module.exports = TennisGame3
-}
+module.exports = TennisGame3
